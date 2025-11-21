@@ -1,4 +1,6 @@
 # Xana AI - Industrial Machine Support Assistant
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FIndustryFusion%2FXanaAI.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2FIndustryFusion%2FXanaAI?ref=badge_shield)
+
 
 **Xana AI** is an intelligent chatbot platform designed for shop-floor operators and technicians to interact with industrial machines. Built with Next.js (frontend) and NestJS (backend), it leverages RAG (Retrieval-Augmented Generation), vector embeddings, and LLM-powered conversational AI to provide contextual machine support, live data visualization, and alert monitoring.
 
@@ -226,6 +228,9 @@ Dockerfiles are included in both `backend/` and `frontend/` directories.
 This project is licensed under the terms specified in the [LICENSE](LICENSE) file.
 
 ---
+
+
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2FIndustryFusion%2FXanaAI.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2FIndustryFusion%2FXanaAI?ref=badge_large)
 
 ## 🤝 Contributing
 
