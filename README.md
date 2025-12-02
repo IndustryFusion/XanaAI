@@ -19,7 +19,7 @@
 
 ### Backend (NestJS)
 - **RAG-Powered Query Service**: Semantic search using Milvus vector database with BGE-M3 embeddings
-- **LLM Integration**: Meta LLaMA 3.3 70B Instruct model via IONOS Cloud API
+- **LLM Integration**: Meta LLaMA 3.3 70B Instruct model via IONOS Cloud API & Qwen2.5-14B-Instruct-fp16-ov via OpenVINO model server running on Intel dGPU like Battlemage or on CPU
 - **Intent Detection**: Automatically detects chart and alert requests using structured LLM outputs
 - **Live Data Fetching**: PostgreSQL TimescaleDB integration for historical machine metrics
 - **Alert Integration**: Real-time alert retrieval from Alerta API
@@ -37,7 +37,9 @@ XanaAI/
 │   ├── src/
 │   │   ├── endpoints/
 │   │   │   ├── query/         # Main query service with RAG
-│   │   │   ├── ionos-rest/    # LLM & embedding API client
+│   │   │   ├── ionos-rest/    # LLM & embedding API client IONOS
+|   |   |   ├── opea-rest      # LLM & embedding API using OpenVINO server running on Intel 
+|   |   |   ├── ollama-rest      # LLM & embedding API client using Ollama running on Intel
 │   │   │   └── vector_mapping/ # Asset-to-vector store mapping
 │   │   ├── data/jsonld/       # JSON-LD machine schemas
 │   │   └── main.ts            # App entry (port 4050)
@@ -62,7 +64,7 @@ XanaAI/
 
 ### Backend
 - **Framework**: NestJS (Node.js)
-- **LLM**: Meta LLaMA 3.3 70B Instruct (via IONOS Cloud)
+- **LLM**: Meta LLaMA 3.3 70B Instruct (via IONOS Cloud) OR Qwen2.5-14B-Instruct-fp16-ov via OpenVINO model server running on Intel dGPU like Battlemage or 0n CPU
 - **Embeddings**: BAAI/bge-m3 (1024-dim vectors)
 - **Vector DB**: Milvus (semantic search)
 - **Time-Series DB**: PostgreSQL/TimescaleDB
@@ -100,13 +102,18 @@ XanaAI/
    npm install
    ```
 
-3. **Configure environment variables**  
+3. **Configure environment variables looking .env.example**  
    Create a `.env` file:
    ```env
    # API Keys
    COMPLETIONS_API_KEY=your_ionos_api_key
    COMPLETIONS_API_URL=https://inference.de-txl.ionos.com
    
+   #OPEA OVMS Configuration (when LLM_PROVIDER="opea-ovms")
+   OPEA_LLM_URL=http://localhost:8000/v3/chat/completions
+   OPEA_LLM_MODEL=Qwen2.5-14B-Instruct-fp16-ov
+   OPEA_CHAT_TIMEOUT=1800000  # 30 minutes
+
    # PostgreSQL (TimescaleDB)
    PGHOST=your_postgres_host
    PGPORT=5432

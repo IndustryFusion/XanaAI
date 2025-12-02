@@ -27,7 +27,7 @@ export class QueryController {
   @HttpCode(HttpStatus.OK)
   async handleQuery(@Body() dto: QueryDto) {
     // Ensure vectorStoreIds is always an array of strings
-    const { messages, vectorStoreIds } = dto;
+    const { messages, vectorStoreIds, hostProvider, assets } = dto;
     const normalizedVectorStoreIds: string[] =
       typeof vectorStoreIds === 'string'
         ? [vectorStoreIds]
@@ -35,9 +35,14 @@ export class QueryController {
         ? vectorStoreIds
         : [];
 
+    // Extract asset names from AssetDto array
+    const assetNames: string[] = assets?.map(asset => asset.asset_name).filter((name): name is string => Boolean(name)) || [];
+
     return this.queryService.handleQuery({
+      hostProvider,
       messages,
       vectorStoreIds: normalizedVectorStoreIds,
+      assets: assetNames,
     });
   }
 

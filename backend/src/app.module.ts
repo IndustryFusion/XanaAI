@@ -24,13 +24,21 @@ import { VectorMappingService } from './endpoints/vector_mapping/vector-mapping.
 import { IonosController } from './endpoints/ionos-rest/ionos.controller';
 import { IonosService } from './endpoints/ionos-rest/ionos.service';
 import { HttpModule } from '@nestjs/axios';
-import { RagIngestService } from './endpoints/ionos-rest/rag-ingest.service';
-import { MilvusRagService } from './endpoints/ionos-rest/milvus.service';
 import { RagModule } from './endpoints/ionos-rest/rag.module';
+import { OllamaModule } from './endpoints/ollama-rest/ollama.module';
+import { OpeaModule } from './endpoints/opea-rest/opea.module';
 
 @Module({
-  imports: [HttpModule.register({ timeout: 30000 }), RagModule],
+  imports: [
+    HttpModule.register({
+      timeout: 30000,
+      maxRedirects: 5,
+    }),
+    RagModule,
+    OllamaModule,
+    OpeaModule,
+  ],
   controllers: [AppController, QueryController, VectorMappingController, IonosController],
-  providers: [AppService, QueryService, VectorMappingService, IonosService, MilvusRagService],
+  providers: [AppService, QueryService, VectorMappingService, IonosService],
 })
 export class AppModule {}

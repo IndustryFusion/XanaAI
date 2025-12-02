@@ -41,4 +41,6 @@ export class QueryDto {
   @ValidateNested({ each: true })
   @Type(() => AssetDto)
   assets?: AssetDto[];
+
+  @IsString() hostProvider!: 'ollama' | 'ionos' | 'opea';
 }
